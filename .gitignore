@@ -1,0 +1,2 @@
+example/ksonnet-chart/templates/*.json
+example/ksonnet-chart/templates/*.yaml

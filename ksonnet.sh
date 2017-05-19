@@ -11,30 +11,39 @@ templates from jsonnet source.
 
 Available Commands:
   show    Show the generated Kubernetes manifests.
-  install Install the Helm chart
+  build   Build the JSONNET files into a Kubernetes manifests, but don't package it.
+  package Generated a packaged Helm chart.
+
+Typical usage:
+
+   $ helm create mychart
+   $ mkdir -p mychart/ksonnet
+   $ edit mychart/ksonnet/main.jsonnet
+   $ helm package mychart
+   $ helm install ./mychart-0.1.0.tgz 
 
 EOF
 }
 
-push() {
-  echo "Packaging $1"
-  cp "${1}" "./docs/${1}"
-  if [ -e ${1}.prov ]; then
-    cp "${1}.prov" "./docs/${1}.prov"
-  fi
-  helm repo index ./docs
-  git add docs/$1 ./docs/index.yaml
-  git commit -m "Auto-commit $1"
-  git push origin master
-  echo "Successfully pushed $1 to GitHub"
-}
-
 show() {
-  jsonnet --jpath $HELM_PLUGIN_DIR/ksonnet-lib $1
-  echo "Done"
+  jsonnet --jpath $HELM_PLUGIN_DIR/ksonnet-lib $1/ksonnet/main.jsonnet
 }
 
-if [[ $# < 2 ]]; then
+build() {
+  jsonnet --jpath $HELM_PLUGIN_DIR/ksonnet-lib -m $1/templates $1/ksonnet/main.jsonnet
+}
+
+package() {
+  build $1
+  helm package 
+}
+
+if [[ $# < 1 ]]; then
+  echo "===> ERROR: Subcommand required."
+  usage
+  exit 1
+elif [[ $# < 2 ]]; then
+  echo "===> ERROR: Missing chart path. Use '.' for the present directory."
   usage
   exit 1
 fi
@@ -45,6 +54,9 @@ case "${1:-"help"}" in
     ;;
   "show")
     show $2
+    ;;
+  "build")
+    build $2
     ;;
   "help")
     usage
