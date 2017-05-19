@@ -1,8 +1,8 @@
-# Helm KSonnet Plugin
+# Helm ksonnet Plugin
 
-This is an _EXPERIMENTAL_ plugin for supporting ksonnet/jsonnet for Helm charts.
+This is an _EXPERIMENTAL_ plugin for supporting ksonnet/Jsonnet for Helm charts.
 
-The KSonnet [library](https://github.com/ksonnet/ksonnet-lib) is highly experimental,
+The [ksonnet library](https://github.com/ksonnet/ksonnet-lib) is highly experimental,
 therefore this plugin is also experimental. Do not use it for production systems.
 
 ## Installation
@@ -10,6 +10,15 @@ therefore this plugin is also experimental. Do not use it for production systems
 ```console
 $ helm plugin install https://<URL>
 ```
+
+Or clone this repo (or otherwise get it on your filesystem) and do:
+
+```console
+$ cd helm-ksonnet
+$ helm plugin install $(pwd)
+```
+
+Note that this repository uses a Git submodule to track the upstream `ksonnet-lib`.
 
 ## Usage
 
@@ -21,7 +30,7 @@ To get started, read the built-in help text:
 $ helm help ksonnet
 ```
 
-### Writing KSonnet Charts
+### Writing ksonnet Charts
 
 Get started by creating a standard chart:
 
@@ -35,11 +44,11 @@ Inside of your chart, you will need to creat a `ksonnet/` directory, which will 
 $ mkdir -p mychart/ksonnet
 ```
 
-KSonnet files are places into that directory, and the `helm ksonnet` plugin takes care of translating those into the canonical Helm Chart structure.
+ksonnet files are places into that directory, and the `helm ksonnet` plugin takes care of translating those into the canonical Helm Chart structure.
 
 > Note: the JSonnet source is sent to Tiller for storage purposes, but is not executed by Tiller.
 
-Next, create a `main.jsonnet` file. Helm KSonnet treats `main.jsonnet` as a special top-level file. _Your chart will not work if you do not have one_. And this file must be located inside of the `ksonnet/` subdirectory.
+Next, create a `main.jsonnet` file. Helm ksonnet treats `main.jsonnet` as a special top-level file. _Your chart will not work if you do not have one_. And this file must be located inside of the `ksonnet/` subdirectory.
 
 ```console
 $ touch mychart/ksonnet/main.jsonnet
@@ -64,6 +73,12 @@ local deployment = kubeUtil.app.v1beta1.deployment;
 ```
 
 The above will generate a Kubernetes Deployment running two `nginx` pods.
+
+#### References
+
+- [Jsonnet tutorial](http://jsonnet.org/docs/tutorial.html)
+- [Jsonnet Specification](http://jsonnet.org/language/spec.html)
+- [ksonnet tutorial](https://github.com/ksonnet/ksonnet-lib/blob/master/docs/TUTORIAL.md)
 
 ### Testing Your Chart
 
