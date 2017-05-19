@@ -35,22 +35,27 @@ build() {
 
 package() {
   build $1
-  helm package 
+  helm package $1
 }
 
 if [[ $# < 1 ]]; then
-  echo "===> ERROR: Subcommand required."
-  usage
+  echo "===> ERROR: Subcommand required. Try 'helm ksonnet help'"
   exit 1
-elif [[ $# < 2 ]]; then
+elif [[ $# < 2 && $1 != "help" ]]; then
   echo "===> ERROR: Missing chart path. Use '.' for the present directory."
-  usage
   exit 1
 fi
 
+JSONNET=$(which jsonnet)
+if [[ "" == $JSONNET ]]; then 
+  echo "===> ERROR: 'jsonnet' not found on PATH. Install 'jsonnet'."
+  exit 1
+fi
+
+
 case "${1:-"help"}" in
-  "push")
-    push $2
+  "package")
+    package $2
     ;;
   "show")
     show $2
