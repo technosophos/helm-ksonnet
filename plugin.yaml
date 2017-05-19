@@ -1,0 +1,11 @@
+name: "ksonnet"
+version: "0.1.0"
+usage: "Provide JSonnet/Ksonnet support to Helm"
+description: |-
+  This plugin provides integration with the ksonnet project.
+
+  It provides KSonnet integration with Helm, generating Helm
+  templates from jsonnet source.
+
+  To learn more about ksonnet, go to https://github.com/ksonnet/ksonnet-lib
+command: "$HELM_PLUGIN_DIR/ksonnet.sh"
