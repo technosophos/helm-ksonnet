@@ -1,0 +1,1 @@
+This chart demonstrates a KSonnet transcoded chart.

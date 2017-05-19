@@ -11,6 +11,7 @@ templates from jsonnet source.
 
 Available Commands:
   show    Show the generated Kubernetes manifests.
+  install Install the Helm chart
 
 EOF
 }
@@ -30,6 +31,7 @@ push() {
 
 show() {
   jsonnet --jpath $HELM_PLUGIN_DIR/ksonnet-lib $1
+  echo "Done"
 }
 
 if [[ $# < 2 ]]; then
@@ -41,10 +43,14 @@ case "${1:-"help"}" in
   "push")
     push $2
     ;;
+  "show")
+    show $2
+    ;;
   "help")
     usage
     ;;
   *)
+    echo $1
     usage
     exit 1
     ;;

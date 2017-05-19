@@ -1,7 +1,7 @@
 name: "ksonnet"
 version: "0.1.0"
-usage: "Provide JSonnet/Ksonnet support to Helm"
-description: |-
+description: "Provide JSonnet/Ksonnet support to Helm"
+usage: |-
   This plugin provides integration with the ksonnet project.
 
   It provides KSonnet integration with Helm, generating Helm
