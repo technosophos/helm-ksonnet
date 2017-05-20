@@ -18,13 +18,6 @@ Install the Helm plugin
 $ helm plugin install https://github.com/technosophos/helm-ksonnet.git
 ```
 
-Or clone this repo (or otherwise get it on your filesystem) and do:
-
-```console
-$ cd helm-ksonnet
-$ helm plugin install $(pwd)
-```
-
 Note that this repository uses a Git submodule to track the upstream `ksonnet-lib`.
 
 ## Usage
@@ -34,7 +27,7 @@ The `helm ksonnet` plugin provides tools for building a Helm chart from jsonnet 
 To get started, read the built-in help text:
 
 ```
-$ helm help ksonnet
+$ helm ksonnet help
 ```
 
 ### Writing ksonnet Charts
@@ -111,9 +104,7 @@ The `jsonnet` language generates JSON files (which is a subset of YAML).
 
 ### Packaging and Installing Your Chart
 
-There are two different ways to can prepare your chart for installation.
-
-The first is to create a chart _package_, and then install it:
+The first step is to create a chart _package_, and then install it:
 
 ```console
 $ helm ksonnet package ./mychart
@@ -128,7 +119,9 @@ $ helm install ./mychart-0.1.0.tgz
 
 > TIP: You can also use `helm install --dry-run --debug ./mychart-0.1.0.tgz` to run a test install.
 
-The second way is to build the Kubernetes manifests but not package the chart:
+### Installing without Packaging
+
+It is possible to install a chart without first packaging it. In this method, we build the Kubernetes manifests but do not package the chart:
 
 ```console
 $ helm ksonnet build ./mychart
