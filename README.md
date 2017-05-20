@@ -7,8 +7,15 @@ therefore this plugin is also experimental. Do not use it for production systems
 
 ## Installation
 
+Prerequisites:
+
+- You must install the `jsonnet` CLI. On macOS, the easiest way is `brew install jsonnet`.
+- You must have [Helm](http://helm.sh) >=2.4.1 installed and configured (`brew install helm`)
+
+Install the Helm plugin
+
 ```console
-$ helm plugin install https://<URL>
+$ helm plugin install https://github.com/technosophos/helm-ksonnet.git
 ```
 
 Or clone this repo (or otherwise get it on your filesystem) and do:
