@@ -26,11 +26,11 @@ EOF
 }
 
 show() {
-  jsonnet --jpath $HELM_PLUGIN_DIR/ksonnet-lib $1/ksonnet/main.jsonnet
+  jsonnet --jpath $HELM_PLUGIN_DIR/ksonnet-lib $1/ksonnet/main.jsonnet --tla-code-file values=$1/ksonnet/values.jsonnet
 }
 
 build() {
-  jsonnet --jpath $HELM_PLUGIN_DIR/ksonnet-lib -m $1/templates $1/ksonnet/main.jsonnet
+  jsonnet --jpath $HELM_PLUGIN_DIR/ksonnet-lib -m $1/templates $1/ksonnet/main.jsonnet --tla-code-file values=$1/ksonnet/values.jsonnet
 }
 
 package() {

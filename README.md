@@ -74,6 +74,31 @@ local deployment = kubeUtil.app.v1beta1.deployment;
 
 The above will generate a Kubernetes Deployment running two `nginx` pods.
 
+You can use values by adding a toplevel function that takes the values and putting a `values.jsonnet` file next to your `main.jsonnet`. 
+```console
+$ cat main.jsonnet
+function(values)
+
+  local core = import "kube/core.libsonnet";
+  local kubeUtil = import "kube/util.libsonnet";
+
+  local container = core.v1.container;
+  local deployment = kubeUtil.app.v1beta1.deployment;
+
+ {
+    local nginxContainer =
+      container.Default("nginx", values.image) +
+      container.NamedPort("http", 80),
+
+    "deployment.yaml": deployment.FromContainer("nginx-deployment", 2, nginxContainer),
+  }
+
+$ cat values.jsonnet
+{
+    image: "nginx:1.7.9"
+}
+```
+
 #### References
 
 - [Jsonnet tutorial](http://jsonnet.org/docs/tutorial.html)
