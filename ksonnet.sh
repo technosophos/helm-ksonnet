@@ -11,7 +11,7 @@ templates from jsonnet source.
 
 Available Commands:
   show    Show the generated Kubernetes manifests.
-  build   Build the JSONNET files into a Kubernetes manifests, but don't package it.
+  build   Build the JSONNET files into a Kubernetes manifest, but don't package it.
   package Generated a packaged Helm chart.
 
 Typical usage:
